@@ -8,3 +8,16 @@ clap = { version = "4", features = ["derive"] }
 molly = "0.3.3"
 spdlog-rs = "=0.4.1"
 glam = "0.25.0"
+
+[profile.release]
+opt-level = 3
+lto = true
+panic = "abort"
+codegen-units = 1
+target-cpu = "native"
+debug = false
+
+[target.x86_64-unknown-linux-gnu]
+rustflags = ["-C", "target-feature=+avx2"]
+# Custom LLVM flags
+# rustflags = ["-C", "llvm-args=-fast-math", "-C", "llvm-args=-unroll-loops"]
